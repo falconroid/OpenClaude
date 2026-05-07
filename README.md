@@ -7,6 +7,7 @@ Open-source utilities, skills, and tools for Claude Code.
 | Package | Description |
 |---------|-------------|
 | [statusline](statusline/) | Compact real-time statusline — model, context, cache, effort, thinking toggle |
+| [skill-frontmatter](skill-frontmatter/) | Fix SKILL.md YAML for Codex compatibility + rsync skills between CC/Codex |
 
 ## Structure
 
