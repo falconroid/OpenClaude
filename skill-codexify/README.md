@@ -53,8 +53,11 @@ python3 fix-frontmatter.py ~/.codex/skills
 
 ## Requirements
 
-- `python3` (all scripts have a cross-platform path)
-- Unix-only legacy scripts also available (`bash` + `rsync`)
+| Script | Depends on | Notes |
+|--------|-----------|-------|
+| `sync-skills.py` | Python 3 (stdlib) | All OS, no pip |
+| `sync-skills.sh` | bash + rsync | Unix only |
+| `fix-frontmatter.py` | Python 3 (stdlib) | All OS, no pip |
 
 ## Related
 

@@ -64,4 +64,8 @@ chmod +x ~/.claude/statusline.sh
 
 ## Requirements
 
-- Claude Code (and therefore Node.js)
+| Version | Depends on | Notes |
+|---------|-----------|-------|
+| `statusline.js` | Node.js (stdlib) | Guaranteed if CC is installed |
+| `statusline.py` | Python 3 (stdlib) | No pip packages |
+| `statusline.sh` | bash + jq | Unix only |
