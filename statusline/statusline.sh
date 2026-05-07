@@ -35,7 +35,15 @@ dir_name=$(basename "$PWD")
 # JSONL file info
 jsonl=""
 if [ "$session" != "?" ]; then
-    proj_dir="${PWD//\//-}"
+    proj_dir="$PWD"
+    # Git Bash / MSYS: /d/Projects/CC → D:/Projects/CC (then encode → D--Projects-CC)
+    if [[ "$proj_dir" =~ ^/[a-zA-Z]/ ]]; then
+        drive="${proj_dir:1:1}"
+        proj_dir="${drive^^}:${proj_dir:2}"
+    fi
+    proj_dir="${proj_dir//:/-}"
+    proj_dir="${proj_dir//\\/-}"
+    proj_dir="${proj_dir//\//-}"
     jsonl_path="$HOME/.claude/projects/$proj_dir/${session}.jsonl"
     if [ -f "$jsonl_path" ]; then
         size=$(stat -c%s "$jsonl_path" 2>/dev/null || stat -f%z "$jsonl_path" 2>/dev/null || echo 0)

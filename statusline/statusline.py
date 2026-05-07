@@ -32,8 +32,21 @@ def fmt_lines(n):
     return f"{n}L"
 
 
+def encode_cwd():
+    r"""Encode CWD to match Claude Code project dir naming.
+    On Windows, Git Bash / MSYS returns /d/Projects/CC, but CC uses D:\Projects\CC.
+    Both normalize to D--Projects-CC by replacing :\/ with -."""
+    cwd = os.getcwd()
+    if len(cwd) >= 3 and cwd[0] == "/" and cwd[2] == "/":
+        # MSYS path: /d/Projects/CC → D:\Projects\CC
+        drive = cwd[1].upper()
+        if "A" <= drive <= "Z":
+            cwd = drive + ":" + cwd[2:].replace("/", "\\")
+    return cwd.replace("\\", "-").replace("/", "-").replace(":", "-")
+
+
 def jsonl_info(session_id):
-    cwd = os.getcwd().replace("\\", "-").replace("/", "-")
+    cwd = encode_cwd()
     path = Path.home() / ".claude" / "projects" / cwd / f"{session_id}.jsonl"
     try:
         stat = path.stat()

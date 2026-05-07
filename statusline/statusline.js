@@ -32,8 +32,18 @@ function fmtLines(n) {
   return n + "L";
 }
 
+function encodeCwd() {
+  let cwd = process.cwd();
+  // Git Bash / MSYS on Windows: /d/Projects/CC → D:\Projects\CC
+  // Claude Code encodes D:\Projects\CC → D--Projects-CC
+  if (process.platform === "win32" && /^\/[a-zA-Z]\//.test(cwd)) {
+    cwd = cwd[1].toUpperCase() + ":" + cwd.slice(2).replace(/\//g, "\\");
+  }
+  return cwd.replace(/[\/\\:]/g, "-");
+}
+
 function jsonlInfo(sessionId) {
-  const cwd = process.cwd().replace(/[\/\\]/g, "-");
+  const cwd = encodeCwd();
   const path = join(homedir(), ".claude", "projects", cwd, sessionId + ".jsonl");
   let stat;
   try { stat = statSync(path); } catch { return ""; }
