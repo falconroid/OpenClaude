@@ -114,7 +114,7 @@ If you run both Claude Code and Codex (OpenCode):
 
 ```bash
 # Sync skills from CC to Codex (Codex doesn't follow symlinks)
-# Use OpenClaude/skill-codexify/sync-skills.sh or your own rsync
+# Use OpenClaude/skill-codexify/sync-skills.py or your own sync method
 python3 upgrade-guard.py readers <skill>
 ```
 

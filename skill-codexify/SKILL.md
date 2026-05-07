@@ -14,20 +14,20 @@ Fixes YAML frontmatter in SKILL.md files so they pass Codex's strict validation,
 
 ## Workflow
 
-### Step 1: Sync skills (rsync, dereference symlinks)
+### Step 1: Sync skills (cross-platform: Python stdlib, no deps)
 
 ```bash
-bash sync-skills.sh ~/vault/mind/skills ~/.codex/skills
+python3 sync-skills.py ~/.claude/skills ~/.codex/skills --dry-run  # preview
+python3 sync-skills.py ~/.claude/skills ~/.codex/skills             # apply
 ```
+
+`sync-skills.sh` also available for Unix users (requires bash + rsync).
 
 ### Step 2: Fix frontmatter
 
 ```bash
-# Check first
-python3 fix-frontmatter.py ~/.codex/skills --check
-
-# Apply
-python3 fix-frontmatter.py ~/.codex/skills
+python3 fix-frontmatter.py ~/.codex/skills --check   # preview
+python3 fix-frontmatter.py ~/.codex/skills            # apply
 ```
 
 ## Common Issues Fixed

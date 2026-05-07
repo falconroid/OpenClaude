@@ -1,6 +1,6 @@
 ---
 name: statusline-setup
-description: Configure Claude Code statusline via settings.json and statusline.sh
+description: "Configure Claude Code statusline via settings.json. Cross-platform: Python (all OS) or bash (Unix). Trigger: set up statusline / install statusline / configure status bar."
 version: 1.0.0
 ---
 
@@ -18,27 +18,32 @@ Fields: `model` `ctx%` `cache_k/used_k/win_k` `duration` `effort` `T/t` `directo
 
 ## Install
 
-```bash
-# 1. Copy the script
-cp statusline.sh ~/.claude/statusline.sh
-chmod +x ~/.claude/statusline.sh
+### Cross-platform (recommended: Python 3, works on Windows/Mac/Linux)
 
-# 2. Add to ~/.claude/settings.json
+```bash
+cp statusline.py ~/.claude/statusline.py
 ```
 
-In `~/.claude/settings.json`, add:
+In `~/.claude/settings.json`:
 
 ```json
 {
   "statusLine": {
     "type": "command",
-    "command": "/home/YOUR_USER/.claude/statusline.sh",
+    "command": "python3 ~/.claude/statusline.py",
     "refreshInterval": 10
   }
 }
 ```
 
-Replace `YOUR_USER` with your actual username (or use `$HOME/.claude/statusline.sh` if Claude Code expands env vars).
+### Unix only (bash + jq)
+
+```bash
+cp statusline.sh ~/.claude/statusline.sh
+chmod +x ~/.claude/statusline.sh
+```
+
+Then use `~/.claude/statusline.sh` as the command.
 
 ## How It Works
 

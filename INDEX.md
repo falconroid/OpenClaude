@@ -10,12 +10,14 @@ openclaude/
 ├── statusline/              # 终端状态行
 │   ├── README.md
 │   ├── SKILL.md
-│   └── statusline.sh
+│   ├── statusline.py        # Python (all OS)
+│   └── statusline.sh        # bash (Unix)
 ├── skill-codexify/          # CC skill → Codex 兼容化
 │   ├── README.md
 │   ├── SKILL.md
 │   ├── fix-frontmatter.py
-│   └── sync-skills.sh
+│   ├── sync-skills.py       # Python (all OS)
+│   └── sync-skills.sh       # bash (Unix)
 ├── skill-builder/           # 创建 Skill 的结构标准
 │   ├── README.md
 │   └── SKILL.md

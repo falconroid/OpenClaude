@@ -21,9 +21,19 @@ Compact, real-time statusline for Claude Code. Shows model, context usage, cache
 
 ## Install
 
+Pick your platform:
+
+**Linux / macOS / WSL:**
 ```bash
 cp statusline.sh ~/.claude/statusline.sh
 chmod +x ~/.claude/statusline.sh
+# Use statusline.sh in settings.json command
+```
+
+**Windows (or cross-platform):**
+```bash
+cp statusline.py ~/.claude/statusline.py
+# Use "python3 ~/.claude/statusline.py" in settings.json command
 ```
 
 Then add to `~/.claude/settings.json`:
@@ -32,22 +42,20 @@ Then add to `~/.claude/settings.json`:
 {
   "statusLine": {
     "type": "command",
-    "command": "/home/YOUR_USER/.claude/statusline.sh",
+    "command": "python3 ~/.claude/statusline.py",
     "refreshInterval": 10
   }
 }
 ```
 
-Replace `YOUR_USER` with your actual username.
+## Files
 
-## How It Works
-
-Claude Code pipes a JSON object to the configured command on each refresh. The script reads `stdin`, extracts the relevant fields with `jq`, and prints a formatted single-line status.
-
-The JSON includes model info, context window stats (`used_percentage`, `context_window_size`, `cache_read_input_tokens`), cost duration, effort level, thinking toggle, and session ID.
+| File | Platform | Depends on |
+|------|----------|------------|
+| `statusline.py` | All (Win/Mac/Linux) | Python 3 (stdlib) |
+| `statusline.sh` | Linux, macOS, WSL | bash + jq |
 
 ## Requirements
 
-- `bash`
-- `jq`
-- Claude Code (obviously)
+- `python3` (for cross-platform) OR `bash` + `jq` (Unix only)
+- Claude Code

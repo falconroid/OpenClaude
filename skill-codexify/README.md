@@ -1,6 +1,6 @@
-# Skill Frontmatter Fixer
+# Skill Codexify — Make CC Skills Work in Codex
 
-Two tools for running Claude Code skills under Codex CLI.
+Three tools for running Claude Code skills under Codex/OpenCode CLI.
 
 ## Problem
 
@@ -11,37 +11,36 @@ Codex has stricter YAML frontmatter validation than CC, and doesn't follow symli
 
 ## Tools
 
-| Script | What it does |
-|--------|-------------|
-| `sync-skills.sh` | rsync skills from source to target (real files, not symlinks) |
-| `fix-frontmatter.py` | Rewrite SKILL.md frontmatter to Codex-compatible YAML |
+| Script | Platform | What it does |
+|--------|----------|-------------|
+| `sync-skills.py` | All (Python) | Copy skills as real files, resolving symlinks |
+| `sync-skills.sh` | Unix | Same, via rsync |
+| `fix-frontmatter.py` | All (Python) | Rewrite SKILL.md frontmatter to Codex-compatible YAML |
 
 ## Usage
 
-### 1. Sync skills (replace symlinks with real files)
+### 1. Sync skills (cross-platform, recommended)
 
 ```bash
-./sync-skills.sh ~/vault/mind/skills ~/.codex/skills
+python3 sync-skills.py ~/.claude/skills ~/.codex/skills
+# Or with env vars:
+SOURCE=~/.claude/skills TARGET=~/.codex/skills python3 sync-skills.py
 ```
 
-After this, run `fix-frontmatter.py` on the target.
+`--dry-run` to preview without changes.
 
 ### 2. Fix frontmatter
 
 ```bash
-# Dry-run first
-python fix-frontmatter.py ~/.codex/skills --check
-
-# Apply fixes
-python fix-frontmatter.py ~/.codex/skills
+python3 fix-frontmatter.py ~/.codex/skills --check   # dry-run
+python3 fix-frontmatter.py ~/.codex/skills            # apply
 ```
 
 ### Typical workflow
 
 ```bash
-# After updating skills in source (CC):
-./sync-skills.sh ~/vault/mind/skills ~/.codex/skills
-python fix-frontmatter.py ~/.codex/skills
+python3 sync-skills.py ~/.claude/skills ~/.codex/skills
+python3 fix-frontmatter.py ~/.codex/skills
 ```
 
 ## What `fix-frontmatter.py` fixes
@@ -54,9 +53,10 @@ python fix-frontmatter.py ~/.codex/skills
 
 ## Requirements
 
-- `bash`, `rsync`, `python3`
+- `python3` (all scripts have a cross-platform path)
+- Unix-only legacy scripts also available (`bash` + `rsync`)
 
 ## Related
 
-- **[skill-builder](../skill-builder/)** — structure standards for creating new skills. Frontmatter rules here are packaging; structure rules there are content.
-- **[skill-upgrade](../skill-upgrade/)** — safe upgrade protocol. Step 6 (sync readers) uses the same rsync + fix-frontmatter workflow.
+- **[skill-builder](../skill-builder/)** — structure standards for creating new skills
+- **[skill-upgrade](../skill-upgrade/)** — safe upgrade protocol. Step 6 (sync readers) uses this workflow
