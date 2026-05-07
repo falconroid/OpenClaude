@@ -7,7 +7,7 @@ Open-source utilities, skills, and tools for Claude Code and Codex (OpenCode).
 | Package | Description |
 |---------|-------------|
 | [statusline](statusline/) | Compact real-time statusline — model, context, cache, effort, thinking toggle |
-| [skill-frontmatter](skill-frontmatter/) | Fix SKILL.md YAML for Codex compatibility + rsync skills between CC/Codex |
+| [skill-codexify](skill-codexify/) | Make CC skills work in Codex — fix YAML frontmatter + rsync real files |
 | [skill-builder](skill-builder/) | Create skills with proper structure — 6 required sections, quality standards |
 | [skill-upgrade](skill-upgrade/) | Safely upgrade existing skills — backup, audit, reader sync, rollback |
 

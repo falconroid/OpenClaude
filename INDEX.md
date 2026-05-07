@@ -11,7 +11,7 @@ openclaude/
 │   ├── README.md
 │   ├── SKILL.md
 │   └── statusline.sh
-├── skill-frontmatter/       # Codex YAML 修复 + rsync
+├── skill-codexify/          # CC skill → Codex 兼容化
 │   ├── README.md
 │   ├── SKILL.md
 │   ├── fix-frontmatter.py

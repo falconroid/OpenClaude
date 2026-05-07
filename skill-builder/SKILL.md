@@ -99,9 +99,9 @@ Not every run has findings, but every run asks the questions.
 
 If you share skills between Claude Code and Codex (OpenCode):
 
-- Codex YAML parser is stricter: special characters in `description:` must be quoted, multi-line descriptions collapsed, double `---` blocks removed. See `skill-frontmatter` package for a fixer script.
+- Codex YAML parser is stricter: special characters in `description:` must be quoted, multi-line descriptions collapsed, double `---` blocks removed. See `skill-codexify` package for a fixer script.
 - Codex does not follow symlinks (issue [#8943](https://github.com/anthropics/codex/issues/8943)). Copy skills as real files or rsync.
-- After creating a skill, run `skill-frontmatter/fix-frontmatter.py` on the Codex copy.
+- After creating a skill, run `skill-codexify/fix-frontmatter.py` on the Codex copy.
 
 ## Creating a Skill
 

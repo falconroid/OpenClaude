@@ -1,16 +1,16 @@
 ---
-name: skill-frontmatter
-description: "Fix SKILL.md YAML frontmatter for Codex compatibility and sync skills from Claude Code to Codex"
+name: skill-codexify
+description: "Make Claude Code skills work in Codex: fix YAML frontmatter, rsync real files (Codex doesn't follow symlinks). Trigger: codexify / fix frontmatter / sync to codex / make codex compatible."
 version: 1.0.0
 ---
 
-# Skill Frontmatter — Codex Compatibility
+# Skill Codexify — Make CC Skills Work in Codex
 
 Fixes YAML frontmatter in SKILL.md files so they pass Codex's strict validation, and syncs skill directories (rsync real files since Codex doesn't follow symlinks).
 
 ## Trigger
 
-"fix frontmatter" / "sync skills to codex" / "skill frontmatter" / "Codex skill sync"
+"codexify" / "fix frontmatter" / "sync skills to codex" / "make codex compatible" / "Codex skill sync"
 
 ## Workflow
 
