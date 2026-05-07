@@ -55,3 +55,49 @@ Read `/home/aegis/vault/mind/wiki/lessons/skill-upgrade-discipline.md`
 # Good (contextual note)
 If you maintain a lessons log, review relevant past incidents before upgrading.
 ```
+
+## Cross-Platform
+
+All scripts must work on Windows, macOS, and Linux without extra toolchains.
+
+### Python > bash
+
+Bash scripts only run on Unix. Rewrite as Python (stdlib only, no pip deps) for cross-platform:
+
+```bash
+# Bad — Unix only
+bash sync-skills.sh ~/.claude/skills ~/.codex/skills
+
+# Good — all OS
+python3 sync-skills.py ~/.claude/skills ~/.codex/skills
+```
+
+Exceptions: scripts invoked by CC itself (not the user's shell) don't need conversion — CC runs in Node.js on all platforms.
+
+### Paths: Path.home() + env vars
+
+Never hardcode Unix-style paths (`/home/`, `~/vault/`). Use:
+
+```python
+# Python
+from pathlib import Path
+home = Path.home()
+claude_skills = Path(os.environ.get("SKILLS_HOME", home / ".claude" / "skills"))
+```
+
+`Path.home()` returns `C:\Users\name` on Windows, `/home/name` on Linux, `/Users/name` on macOS.
+
+For SKILL.md instructions, use `~/.claude/skills/` — CC translates `~` to the correct path on each platform.
+
+### Zero dependencies
+
+Python stdlib only. No `pip install` required. Libraries to avoid:
+- `requests` → `urllib`
+- `rich`/`click`/`typer` → `argparse` + `print`
+- `pyyaml` → manual frontmatter parsing
+
+### Keep bash as fallback, mark as Unix-only
+
+If a bash script already exists and works, keep it but:
+- Name the Python version as the recommended path in docs
+- Label bash version "Unix only"
