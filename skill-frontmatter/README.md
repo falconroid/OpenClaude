@@ -55,3 +55,8 @@ python fix-frontmatter.py ~/.codex/skills
 ## Requirements
 
 - `bash`, `rsync`, `python3`
+
+## Related
+
+- **[skill-builder](../skill-builder/)** — structure standards for creating new skills. Frontmatter rules here are packaging; structure rules there are content.
+- **[skill-upgrade](../skill-upgrade/)** — safe upgrade protocol. Step 6 (sync readers) uses the same rsync + fix-frontmatter workflow.
