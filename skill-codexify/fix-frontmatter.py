@@ -19,7 +19,7 @@ def yaml_safe(s: str) -> str:
 
 def fix_frontmatter(filepath: str):
     skill = os.path.basename(os.path.dirname(filepath))
-    with open(filepath) as f:
+    with open(filepath, encoding='utf-8') as f:
         content = f.read()
 
     original = content
@@ -107,7 +107,7 @@ def main():
         result, new_content = fix_frontmatter(sf)
         if result == 'FIXED':
             if not check_only:
-                with open(sf, 'w') as f:
+                with open(sf, 'w', encoding='utf-8') as f:
                     f.write(new_content)
             print(f'  FIXED  {entry}')
             fixed += 1
