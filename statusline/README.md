@@ -21,41 +21,47 @@ Compact, real-time statusline for Claude Code. Shows model, context usage, cache
 
 ## Install
 
-Pick your platform:
+### Recommended: Node.js (all platforms — CC already requires Node)
 
-**Linux / macOS / WSL:**
 ```bash
-cp statusline.sh ~/.claude/statusline.sh
-chmod +x ~/.claude/statusline.sh
-# Use statusline.sh in settings.json command
+cp statusline.js ~/.claude/statusline.js
 ```
 
-**Windows (or cross-platform):**
-```bash
-cp statusline.py ~/.claude/statusline.py
-# Use "python3 ~/.claude/statusline.py" in settings.json command
-```
-
-Then add to `~/.claude/settings.json`:
+In `~/.claude/settings.json`:
 
 ```json
 {
   "statusLine": {
     "type": "command",
-    "command": "python3 ~/.claude/statusline.py",
+    "command": "node ~/.claude/statusline.js",
     "refreshInterval": 10
   }
 }
+```
+
+### Alternative: Python 3 (all platforms)
+
+```bash
+cp statusline.py ~/.claude/statusline.py
+# Use: "python3 ~/.claude/statusline.py"
+```
+
+### Alternative: bash + jq (Unix only)
+
+```bash
+cp statusline.sh ~/.claude/statusline.sh
+chmod +x ~/.claude/statusline.sh
+# Use: "~/.claude/statusline.sh"
 ```
 
 ## Files
 
 | File | Platform | Depends on |
 |------|----------|------------|
+| `statusline.js` | All (Win/Mac/Linux) | Node.js (bundled with CC) |
 | `statusline.py` | All (Win/Mac/Linux) | Python 3 (stdlib) |
 | `statusline.sh` | Linux, macOS, WSL | bash + jq |
 
 ## Requirements
 
-- `python3` (for cross-platform) OR `bash` + `jq` (Unix only)
-- Claude Code
+- Claude Code (and therefore Node.js)

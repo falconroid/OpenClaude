@@ -18,10 +18,10 @@ Fields: `model` `ctx%` `cache_k/used_k/win_k` `duration` `effort` `T/t` `directo
 
 ## Install
 
-### Cross-platform (recommended: Python 3, works on Windows/Mac/Linux)
+### Recommended: Node.js (all platforms — CC already requires Node)
 
 ```bash
-cp statusline.py ~/.claude/statusline.py
+cp statusline.js ~/.claude/statusline.js
 ```
 
 In `~/.claude/settings.json`:
@@ -30,10 +30,17 @@ In `~/.claude/settings.json`:
 {
   "statusLine": {
     "type": "command",
-    "command": "python3 ~/.claude/statusline.py",
+    "command": "node ~/.claude/statusline.js",
     "refreshInterval": 10
   }
 }
+```
+
+### Alternative: Python 3 (all platforms)
+
+```bash
+cp statusline.py ~/.claude/statusline.py
+# Use: "python3 ~/.claude/statusline.py"
 ```
 
 ### Unix only (bash + jq)
@@ -42,8 +49,6 @@ In `~/.claude/settings.json`:
 cp statusline.sh ~/.claude/statusline.sh
 chmod +x ~/.claude/statusline.sh
 ```
-
-Then use `~/.claude/statusline.sh` as the command.
 
 ## How It Works
 

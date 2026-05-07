@@ -24,7 +24,7 @@ def main():
     dur_ms = data.get("cost", {}).get("total_duration_ms", 0)
     effort = data.get("effort", {}).get("level", "?")
     thinking = data.get("thinking", {}).get("enabled", False)
-    session = data.get("session_id", "?")[:8]
+    session = data.get("session_id", "?")
 
     cache_k = cache_read // 1000
     used_k = (used_pct * win_size // 100) // 1000
