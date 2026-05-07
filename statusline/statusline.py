@@ -7,6 +7,42 @@ Usage: set statusLine.command to this script in ~/.claude/settings.json
 import json
 import os
 import sys
+from pathlib import Path
+
+
+def count_lines(path):
+    try:
+        with open(path, "rb") as f:
+            return sum(chunk.count(b"\n") for chunk in iter(lambda: f.read(65536), b""))
+    except OSError:
+        return None
+
+
+def fmt_size(n):
+    if n >= 1048576:
+        return f"{n / 1048576:.1f}M"
+    if n >= 1024:
+        return f"{round(n / 1024)}K"
+    return f"{n}B"
+
+
+def fmt_lines(n):
+    if n >= 1000:
+        return f"{n / 1000:.1f}kL"
+    return f"{n}L"
+
+
+def jsonl_info(session_id):
+    cwd = os.getcwd().replace("\\", "-").replace("/", "-")
+    path = Path.home() / ".claude" / "projects" / cwd / f"{session_id}.jsonl"
+    try:
+        stat = path.stat()
+    except OSError:
+        return ""
+    lines = count_lines(str(path))
+    if lines is None:
+        return ""
+    return f" | {fmt_lines(lines)} {fmt_size(stat.st_size)}"
 
 
 def main():
@@ -42,10 +78,11 @@ def main():
 
     think_icon = "T" if thinking else "t"
     dir_name = os.path.basename(os.getcwd())
+    jsonl = jsonl_info(session) if session != "?" else ""
 
     print(
         f"[{model}] {used_pct}% {cache_k}k/{used_k}k/{win_k}k | "
-        f"{dur_fmt} | {effort}{think_icon} | {dir_name} | {session}",
+        f"{dur_fmt} | {effort}{think_icon} | {dir_name} | {session}{jsonl}",
         flush=True,
     )
 

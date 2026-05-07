@@ -3,7 +3,7 @@
 Compact, real-time statusline for Claude Code. Shows model, context usage, cache hits, session duration, effort level, and thinking status — all in one line.
 
 ```
-[deepseek-v4-pro] 45% 32k/180k/200k | 3m42s | 3T | cc-maintain | abc123...
+[deepseek-v4-pro] 45% 32k/180k/200k | 3m42s | 3T | cc-maintain | abc123... | 4.1kL 6.5M
 ```
 
 ## Fields
@@ -17,7 +17,8 @@ Compact, real-time statusline for Claude Code. Shows model, context usage, cache
 | `3` | Effort level (1-5) |
 | `T` / `t` | Thinking enabled / disabled |
 | `cc-maintain` | Current directory name |
-| `abc123...` | Session ID (truncated) |
+| `abc123...` | Session ID (full UUID) |
+| `4.1kL 6.5M` | Session JSONL transcript: line count + file size (omitted if no transcript yet) |
 
 ## Install
 

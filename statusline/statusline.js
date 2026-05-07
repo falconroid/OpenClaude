@@ -3,7 +3,44 @@
 // CC pipes JSON to stdin, this prints a formatted one-line status.
 "use strict";
 
-const { platform } = require("os");
+const { homedir } = require("os");
+const { statSync, openSync, readSync, closeSync } = require("fs");
+const { join } = require("path");
+
+function countLines(path) {
+  let fd;
+  try { fd = openSync(path, "r"); } catch { return null; }
+  const buf = Buffer.alloc(65536);
+  let lines = 0, bytesRead;
+  while ((bytesRead = readSync(fd, buf, 0, buf.length, null)) > 0) {
+    for (let i = 0; i < bytesRead; i++) {
+      if (buf[i] === 10) lines++;
+    }
+  }
+  closeSync(fd);
+  return lines;
+}
+
+function fmtSize(bytes) {
+  if (bytes >= 1048576) return (bytes / 1048576).toFixed(1) + "M";
+  if (bytes >= 1024) return Math.round(bytes / 1024) + "K";
+  return bytes + "B";
+}
+
+function fmtLines(n) {
+  if (n >= 1000) return (n / 1000).toFixed(1) + "kL";
+  return n + "L";
+}
+
+function jsonlInfo(sessionId) {
+  const cwd = process.cwd().replace(/[\/\\]/g, "-");
+  const path = join(homedir(), ".claude", "projects", cwd, sessionId + ".jsonl");
+  let stat;
+  try { stat = statSync(path); } catch { return ""; }
+  const lines = countLines(path);
+  if (lines === null) return "";
+  return ` | ${fmtLines(lines)} ${fmtSize(stat.size)}`;
+}
 
 let input = "";
 process.stdin.setEncoding("utf-8");
@@ -39,7 +76,8 @@ process.stdin.on("end", () => {
 
   const thinkIcon = thinking ? "T" : "t";
   const dirName = process.cwd().split(/[\\/]/).pop();
-  const statusLine = `[${model}] ${usedPct}% ${cacheK}k/${usedK}k/${winK}k | ${durFmt} | ${effort}${thinkIcon} | ${dirName} | ${session}`;
+  const jsonl = session !== "?" ? jsonlInfo(session) : "";
+  const statusLine = `[${model}] ${usedPct}% ${cacheK}k/${usedK}k/${winK}k | ${durFmt} | ${effort}${thinkIcon} | ${dirName} | ${session}${jsonl}`;
 
   // On Windows with cmd/pwsh, stdout handles multibyte better with explicit newline
   process.stdout.write(statusLine + "\n");

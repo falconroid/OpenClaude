@@ -11,10 +11,10 @@ Install a compact, real-time statusline for Claude Code that shows model, contex
 ## What You Get
 
 ```
-[deepseek-v4-pro] 45% 32k/180k/200k | 3m42s | 3T | cc-maintain | abc123...
+[deepseek-v4-pro] 45% 32k/180k/200k | 3m42s | 3T | cc-maintain | abc123... | 4.1kL 6.5M
 ```
 
-Fields: `model` `ctx%` `cache_k/used_k/win_k` `duration` `effort` `T/t` `directory` `session_id`
+Fields: `model` `ctx%` `cache_k/used_k/win_k` `duration` `effort` `T/t` `directory` `session_id` `jsonl_lines+size`
 
 ## Install
 

@@ -32,5 +32,29 @@ fi
 
 dir_name=$(basename "$PWD")
 
-printf "[%s] %s%% %dk/%dk/%dk | %s | %s%s | %s | %s" \
-    "$model" "$used_pct" "$cache_k" "$used_k" "$win_k" "$dur_fmt" "$effort" "$think_icon" "$dir_name" "$session"
+# JSONL file info
+jsonl=""
+if [ "$session" != "?" ]; then
+    proj_dir="${PWD//\//-}"
+    jsonl_path="$HOME/.claude/projects/$proj_dir/${session}.jsonl"
+    if [ -f "$jsonl_path" ]; then
+        size=$(stat -c%s "$jsonl_path" 2>/dev/null || stat -f%z "$jsonl_path" 2>/dev/null || echo 0)
+        lines=$(wc -l < "$jsonl_path" 2>/dev/null || echo 0)
+        if [ "$size" -ge 1048576 ]; then
+            size_fmt=$(awk "BEGIN {printf \"%.1fM\", $size/1048576}")
+        elif [ "$size" -ge 1024 ]; then
+            size_fmt="$(( (size + 512) / 1024 ))K"
+        else
+            size_fmt="${size}B"
+        fi
+        if [ "$lines" -ge 1000 ]; then
+            lines_fmt=$(awk "BEGIN {printf \"%.1fkL\", $lines/1000}")
+        else
+            lines_fmt="${lines}L"
+        fi
+        jsonl=" | $lines_fmt $size_fmt"
+    fi
+fi
+
+printf "[%s] %s%% %dk/%dk/%dk | %s | %s%s | %s | %s%s" \
+    "$model" "$used_pct" "$cache_k" "$used_k" "$win_k" "$dur_fmt" "$effort" "$think_icon" "$dir_name" "$session" "$jsonl"
