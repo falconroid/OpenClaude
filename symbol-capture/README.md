@@ -23,6 +23,14 @@ You type a symbol prefix. Your AI (Claude Code, Codex, etc.) detects it and rout
 
 ## Install
 
+**Recommended: symlink** (CC auto-discovers, edits stay in sync):
+
+```bash
+ln -s ~/vault/projects/openclaude/symbol-capture ~/.claude/skills/symbol-capture
+```
+
+**Alternative: copy** (also works with Codex/OpenCode):
+
 ```bash
 mkdir -p ~/.claude/skills/symbol-capture
 cp SKILL.md ~/.claude/skills/symbol-capture/SKILL.md
