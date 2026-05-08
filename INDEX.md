@@ -29,6 +29,7 @@ openclaude/
 └── symbol-capture/          # 单字符前缀零摩擦捕获
     ├── README.md
     ├── SKILL.md
+    ├── install.sh
     └── examples/
         └── claude-md-snippet.md
 ```
