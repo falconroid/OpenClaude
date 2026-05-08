@@ -1,25 +1,67 @@
-# Symbol Capture — Zero-Friction Idea Capture in Conversation
+# Symbol Capture
 
-Tag thoughts, ideas, moments, and todos mid-conversation with single-character prefixes. Your AI routes them to the right place automatically.
+> Single-character prefixes that route thoughts to the right place — without leaving the conversation.
+
+## Is this for you?
+
+You have long, deep conversations with Claude Code. Insights surface mid-flow — a concept worth keeping, a todo that just emerged, a moment you want to remember. You tell yourself "I'll capture that later." Later comes, the heat is gone, the thought is fuzzy. You don't capture it.
+
+If this never happens to you, skip this. This tool solves one specific problem: **the gap between having a thought and recording it**.
+
+If you use Claude Code for quick tasks and close the session, you don't need this. If your sessions run for hours and you treat CC as a thinking partner, read on.
+
+## What it looks like
+
+Normal conversation vs. symbol capture:
 
 ```
-!  insight that should live somewhere
-&  idea / lightbulb moment
-*  moment worth remembering
-+  something to do later
+User: I think the real issue with our architecture is that we
+      conflate state and configuration too often.
+
+# ↑ That insight is now gone unless you manually save it later.
 ```
 
-Like keyboard shortcuts for your thinking stream.
+```
+User: ! I think the real issue with our architecture is that we
+      conflate state and configuration too often.
 
-## Why
+# ↑ That insight was written to ~/.claude/captures/stream/2026-05-08.md
+#   before the AI even responded.
+```
 
-The half-life of a good thought in conversation is seconds. By the time you finish talking and go back to capture it, the heat is gone. Symbols let you capture in the same instant you think.
+One character. No slash-command. No leaving the flow. The AI detects the prefix, routes the content, then continues the conversation normally.
 
-## How It Works
+## How to use
 
-You type a symbol prefix. Your AI (Claude Code, Codex, etc.) detects it and routes the content to the right file — stream journal, ideas folder, task system — before continuing the conversation.
+Type a symbol at the start of a message. Repeat it for priority (`!!!` > `!!` > `!`). Combine symbols when something crosses categories (`*$` = highlight + publish candidate).
 
-**Capture first, respond second.**
+| Type | Symbol | Where it goes |
+|------|--------|---------------|
+| Insight / event | `!` | Stream journal (`YYYY-MM-DD.md`) |
+| Idea / concept | `&` | Ideas folder |
+| Trick / technique | `=` | Tricks folder |
+| Moment / highlight | `*` | Moments file + full archive |
+| Publish candidate | `$` | Publish candidates folder |
+| Todo / action item | `+` | Your task system |
+| Vent / emotion | `?` | Stream journal (tagged `#vent`) |
+
+Real examples:
+
+```
+& 苏格拉底式追问在面试中 100% 稳定出现——这是认知内化的标志
+```
+
+```
+* 川说"情绪是觉知的显影液"——这可能是整个 session 最重要的洞察
+```
+
+```
++ 把 symbol-capture 的 install.sh 补上
+```
+
+```
+? 又被同一个模式困住了，这次甚至比上次更糟
+```
 
 ## Install
 
@@ -27,46 +69,30 @@ You type a symbol prefix. Your AI (Claude Code, Codex, etc.) detects it and rout
 curl -sSL https://raw.githubusercontent.com/falconroid/OpenClaude/main/symbol-capture/install.sh | bash
 ```
 
-That downloads the skill into `~/.claude/skills/symbol-capture/`. One more command to activate:
+Then activate:
 
 ```bash
 cat ~/.claude/skills/symbol-capture/examples/claude-md-snippet.md >> ~/.claude/CLAUDE.md
 ```
 
-Customize the target paths in CLAUDE.md afterwards. Restart Claude Code — done.
+Restart Claude Code. Done.
 
-**What just happened:** CC auto-discovers skills in `~/.claude/skills/`. The CLAUDE.md rules tell it to watch for symbol prefixes and route them automatically.
+**What just happened:** CC auto-discovers skills placed in `~/.claude/skills/`. The CLAUDE.md rules tell it to watch for symbol prefixes and route them.
 
-## Default Symbols
+## Customize
 
-| Symbol | Channel | Default Target |
-|--------|---------|---------------|
-| `!` / `!!` / `!!!` | Stream capture | `~/.claude/captures/stream/YYYY-MM-DD.md` |
-| `&` / `&&` / `&&&` | Idea / lightbulb | `~/.claude/captures/ideas/YYYY-MM-DD-topic.md` |
-| `=` / `==` / `===` | Trick / technique | `~/.claude/captures/tricks/YYYY-MM-DD-topic.md` |
-| `*` / `**` / `***` | Moment / highlight | `~/.claude/captures/moments.md` |
-| `$` / `$$` / `$$$` | Publish candidate | `~/.claude/captures/publish-candidates/` |
-| `+` / `++` / `+++` | Todo | Your task system |
-| `?` / `??` / `???` | Vent / emotion | `~/.claude/captures/stream/YYYY-MM-DD.md` (#vent) |
+Edit the paths in your CLAUDE.md. Defaults write to `~/.claude/captures/`. Point them anywhere — Obsidian vault, Notion, a git repo.
 
-Repeat count = priority (`!!!` > `!!` > `!`). Symbols combine (`*$` = highlight + publish candidate).
+## Start small
 
-## Configuration
+Don't deploy all 7 symbols. Start with the 3 you feel the friction of NOT having:
 
-All paths are yours to define. Edit the rules in your CLAUDE.md to point at your own knowledge system — local files, Obsidian, Notion, anything.
+1. `!` — "I wish I had written that down"
+2. `&` — "That concept is worth keeping"
+3. `+` — "I need to do something with this"
 
-## Design Principles
-
-- **Capture-first**: detect and route before responding
-- **Zero friction**: one character, no slash-command, no leaving the flow
-- **Err on capture**: false positive (over-capture) costs less than false negative (missed insight)
-- **Heat half-life**: if you don't capture it now, the feeling is gone
-- **Write side + read side = system**: every symbol defines who writes, who reads, and the trigger
-
-## Requirements
-
-- Claude Code (or any AI agent that follows CLAUDE.md rules)
+Add more as muscle memory forms.
 
 ## Feedback
 
-Found a bug or have a feature request? [Open an issue](https://github.com/falconroid/OpenClaude).
+[Open an issue](https://github.com/falconroid/OpenClaude).
