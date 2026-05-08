@@ -62,3 +62,7 @@ upgrade-guard.py list <skill>                           List backups
 
 - `python3` (stdlib only, no pip packages)
 - Optional: `git` (for recording git HEAD in manifest)
+
+## Feedback
+
+Found a bug or have a feature request? [Open an issue](https://github.com/falconroid/OpenClaude).

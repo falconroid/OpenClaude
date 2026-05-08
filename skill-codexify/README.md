@@ -63,3 +63,7 @@ python3 fix-frontmatter.py ~/.codex/skills
 
 - **[skill-builder](../skill-builder/)** — structure standards for creating new skills
 - **[skill-upgrade](../skill-upgrade/)** — safe upgrade protocol. Step 6 (sync readers) uses this workflow
+
+## Feedback
+
+Found a bug or have a feature request? [Open an issue](https://github.com/falconroid/OpenClaude).

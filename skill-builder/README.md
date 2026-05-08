@@ -35,3 +35,7 @@ cp SKILL.md ~/.claude/skills/skill-builder/SKILL.md
 ## Requirements
 
 - Claude Code
+
+## Feedback
+
+Found a bug or have a feature request? [Open an issue](https://github.com/falconroid/OpenClaude).

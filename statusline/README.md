@@ -70,3 +70,7 @@ chmod +x ~/.claude/statusline.sh
 | `statusline.js` | Node.js (stdlib) | Guaranteed if CC is installed |
 | `statusline.py` | Python 3 (stdlib) | No pip packages |
 | `statusline.sh` | bash + jq | Unix only |
+
+## Feedback
+
+Found a bug or have a feature request? [Open an issue](https://github.com/falconroid/OpenClaude).
