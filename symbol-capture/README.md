@@ -23,21 +23,19 @@ You type a symbol prefix. Your AI (Claude Code, Codex, etc.) detects it and rout
 
 ## Install
 
-**Recommended: symlink** (CC auto-discovers, edits stay in sync):
-
 ```bash
-ln -s ~/vault/projects/openclaude/symbol-capture ~/.claude/skills/symbol-capture
+curl -sSL https://raw.githubusercontent.com/falconroid/OpenClaude/main/symbol-capture/install.sh | bash
 ```
 
-**Alternative: copy** (also works with Codex/OpenCode):
+That downloads the skill into `~/.claude/skills/symbol-capture/`. One more command to activate:
 
 ```bash
-mkdir -p ~/.claude/skills/symbol-capture
-cp SKILL.md ~/.claude/skills/symbol-capture/SKILL.md
-cp -r examples ~/.claude/skills/symbol-capture/
+cat ~/.claude/skills/symbol-capture/examples/claude-md-snippet.md >> ~/.claude/CLAUDE.md
 ```
 
-Then add the symbol rules to your `~/.claude/CLAUDE.md`. Copy from `examples/claude-md-snippet.md` and customize the target paths.
+Customize the target paths in CLAUDE.md afterwards. Restart Claude Code — done.
+
+**What just happened:** CC auto-discovers skills in `~/.claude/skills/`. The CLAUDE.md rules tell it to watch for symbol prefixes and route them automatically.
 
 ## Default Symbols
 
